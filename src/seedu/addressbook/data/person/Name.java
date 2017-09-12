@@ -16,6 +16,7 @@ public class Name {
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
+    public static final String PREFIX = "n/";
 
     /**
      * Validates given name.
