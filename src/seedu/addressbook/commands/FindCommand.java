@@ -8,7 +8,7 @@ import java.util.*;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends SortableCommand {
 
     public static final String COMMAND_WORD = "find";
 
@@ -32,7 +32,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+        final List<ReadOnlyPerson> personsFound = getSortedPersons(getPersonsWithNameContainingAnyKeyword(keywords));
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }
 
