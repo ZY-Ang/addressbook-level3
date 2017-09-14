@@ -71,6 +71,27 @@ public class AddressBook {
     }
 
     /**
+     * Reloads the address book with data from the new address book.
+     * 
+     * @param addressBook the new addressbook.
+     */
+    public boolean loadNewAddressBook(AddressBook addressBook) {
+        try {
+            clear();
+            allPersons.addAll(addressBook.getAllPersons());
+            allTags.addAll(addressBook.getAllTags());
+            return true;
+            
+        } catch (DuplicatePersonException ex) {
+            return false;
+            
+        } catch (UniqueTagList.DuplicateTagException ex) {
+            return false;
+            
+        }
+    }
+    
+    /**
      * Adds a person to the address book.
      * Also checks the new person's tags and updates {@link #allTags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #allTags}.
@@ -132,5 +153,10 @@ public class AddressBook {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(allPersons, allTags);
+    }
+
+    @Override
+    public AddressBook clone() {
+        return new AddressBook(new UniquePersonList(allPersons), new UniqueTagList(allTags));
     }
 }
