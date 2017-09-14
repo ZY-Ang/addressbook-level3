@@ -238,19 +238,9 @@ public class Parser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
 
-        final Set<String> nameKeywordSet = new HashSet<>();
-        final Set<String> tagSet = new HashSet<>();
-
-        //parse tags
-        for (String keyword : keywords) {
-            if(keyword.startsWith(Tag.PREFIX)) {
-                tagSet.add(keyword.substring(Tag.PREFIX.length(), keyword.length()));
-            } else {
-                nameKeywordSet.add(keyword);
-            }
-        }
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         
-        return new FindCommand(nameKeywordSet, tagSet);
+        return new FindCommand(keywordSet);
     }
 
 }
