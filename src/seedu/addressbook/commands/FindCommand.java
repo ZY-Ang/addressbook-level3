@@ -68,15 +68,8 @@ public class FindCommand extends Command {
 
             // check for tag if person has not been added
             if (!isPersonAdded) {
-                for (String tag : tagKeywords) {
-                    for (Tag personTag : personTags) {
-                        if (personTag.tagName.equals(tag)) {
-                            if (!isPersonAdded) {
-                                matchedPersons.add(person);
-                                isPersonAdded = true;
-                            }
-                        }
-                    }
+                if (!Collections.disjoint(keywords, personTags.toStringSet())) {
+                    matchedPersons.add(person);
                 }
             }
 
