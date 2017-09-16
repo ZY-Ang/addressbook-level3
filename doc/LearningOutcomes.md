@@ -37,9 +37,9 @@ After studying this code and completing the corresponding exercises, you should 
 * [se-edu/se-book: Requirements: Specifying Requirements: Use Cases](https://se-edu.github.io/se-book/specifyingRequirements/useCases/) 
 
 #### Exercise: Add a 'Rename tag' use case 
-* Add a use case to the `DeveloperGuide.md` to cover the case of *renaming of an existing tag*.<br> 
+* Add a use case to the `DeveloperGuide.md` to cover the case of *renaming of an existing tag*.  
   e.g. rename the tag `friends` to `buddies` (i.e. all persons who had the `friends` tag will now have 
-  a `buddies` tag instead)<br>
+  a `buddies` tag instead)  
   Assume that AddressBook confirms the change with the user before carrying out the operation. 
 
 ------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Note how the `Command::execute()` method shows polymorphic behavior.
 * Add a method `boolean isMutating()` to the `Command` class. This method will return `true` for
   command types that mutate the data. e.g. `AddCommand`
 * Currently, AddressBook data are saved to the file after every command. 
-  Take advantage of the the new method you added to limit file saving to only for command types that mutate data.<br>
+  Take advantage of the the new method you added to limit file saving to only for command types that mutate data.  
   i.e. `add` command should always save the data while `list` command should never save data to the file.
 
 Note: There may be better ways to limit file saving to commands that mutate data. The above approach, while not
@@ -92,7 +92,7 @@ Note: There may be better ways to limit file saving to commands that mutate data
 ## Use interfaces `[LO-Interfaces]`
 
 Note how the `Person` class implements the `ReadOnlyPerson` interface so that clients who don't need write access to `Person` objects can access `Person` objects through the `ReadOnlyPerson` interface instead.
-<img src="images/ReadOnlyPersonUsage.png" width='500' />
+![](images/ReadOnlyPersonUsage.png)
 
 #### References
 
@@ -100,8 +100,8 @@ Note how the `Person` class implements the `ReadOnlyPerson` interface so that cl
 
 ##### Exercise: Add a `Printable` interface 
 
-* Add a `Printable` interface as follows.<br>
-  <img src="images/PrintableInterface.png" width='400' />
+* Add a `Printable` interface as follows.  
+  ![](images/PrintableInterface.png)
 * `Override` the `getPrintableString` in classes `Name`, `Phone`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
 * Add the following method in a suitable place of some other class. Note how the method depends on the Interface.
   
@@ -177,8 +177,8 @@ Note how the `Person` class implements the `ReadOnlyPerson` interface so that cl
 
 * Note how `Logic` class depends on the `StorageFile` class. This is a violation of DIP.
 * Modify the implementation as follows so that both `Logic` and `StorageFile` now depend on the
-  `abstract` class `Storage`. <br>
-  <img src="images/LogicStroageFileDIP.png" width="300">
+  `abstract` class `Storage`.   
+  ![](images/LogicStroageFileDIP.png)
 * Where else in the code do you notice the application of DIP?
 
 ------------------------------------------------------------------------------------------------------
@@ -196,22 +196,22 @@ getting the `StorageFile` class involved? That is a situation where we can use *
 #### Exercise: Facilitate injecting a StorageStub
 
 * Change the implementation as follows so that we can inject a `StorageStub` when testing the `Logic`
-  class. <br>
-  <img src="images/DependencyInjection.png" width="600">
+  class.   
+  ![](images/DependencyInjection.png)
   
   > If you did the exercise in [`LO-DIP`](#apply-dependency-inversion-principle-lo-dip)
     already but those changes are in a different branch, you may be able to reuse some of those commits 
-    by cherry picking them from that branch to the branch you created for this exercise. <br>
+    by cherry picking them from that branch to the branch you created for this exercise.   
     Note: *cherry picking* is simply copy-pasting a commit from one branch to another. In SourceTree, you can 
     right-click on the commit your want to copy to the current branch, and choose 'Cherry pick'
 * Implement the `StorageStub` such that calls to the `save` method do nothing (i.e. empty method body).   
-* Update the `LogicTest` to work with the `StorageStub` instead of the actual `StorageFile` object. <br>
+* Update the `LogicTest` to work with the `StorageStub` instead of the actual `StorageFile` object.   
   i.e. `Logic` injects a `StorageStub` object to replace the dependency of `Logic` on `StorageFile` before 
    testing `Logic`.
 * The example above uses [DIP](#apply-dependency-inversion-principle-lo-dip) as a means to achieve DI.
   Note that there is another way to inject a `StorageStub` object, as shown below.
-  In this case we do not apply the DIP but we still achieve DI.<br>
-  <img src="images/DependencyInjectionWithoutDIP.png" width="250">
+  In this case we do not apply the DIP but we still achieve DI.  
+  ![](images/DependencyInjectionWithoutDIP.png)
 
 ------------------------------------------------------------------------------------------------------
 

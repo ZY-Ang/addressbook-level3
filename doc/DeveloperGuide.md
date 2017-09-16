@@ -30,7 +30,7 @@
 8. Click `Finish`
 9. Add JUnit 4 to classpath
    1. Open any test file in `\test\java` and place your cursor over any `@Test` highlighted in red
-   2. Press <kbd>ALT</kbd>+<kbd>ENTER</kbd> and select `Add 'JUnit4' to classpath`
+   2. Press `ALT+ENTER` and select `Add 'JUnit4' to classpath`
    3. Select `Use 'JUnit4' from IntelliJ IDEA distribution` and click `OK`
 10. Run all the tests (right-click the `test` folder, and click `Run 'All Tests'`)
 11. Observe how some tests fail. That is because they try to access the test data from the wrong directory (the working directory is expected to be the root directory, but IntelliJ runs the test with `test\` as the working directory by default). To fix this issue:
@@ -42,7 +42,7 @@
 12. Run the tests again to ensure they all pass now.
 
 ## Design
-<img src="images/mainClassDiagram.png"/>
+![](images/mainClassDiagram.png)
 
 ## Testing
 
@@ -74,7 +74,7 @@ Priority | As a ... | I want to ... | So that I can...
 1. User requests to list persons
 2. AddressBook shows a list of persons
 3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+4. AddressBook deletes the person  
 Use case ends.
 
 **Extensions**
@@ -85,7 +85,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. AddressBook shows an error message  
   Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements

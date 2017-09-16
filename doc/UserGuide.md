@@ -11,7 +11,7 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 4. Click `Run Main.main()`
 5. The GUI should appear in a few seconds
 
-<img src="images/Ui.png">
+![](images/Ui.png)
 
 ## Viewing help : `help`
 Format: `help`
@@ -19,7 +19,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 ## Adding a person: `add`
-Adds a person to the address book<br>
+Adds a person to the address book  
 Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...` 
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -35,75 +35,75 @@ Examples:
 * `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
 
 ## Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+Shows a list of all persons in the address book.  
 Format: `list`
 
 ## Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+Finds persons whose names contain any of the given keywords.  
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
 and persons matching at least one keyword will be returned (i.e. `OR` search).
 
 Examples: 
-* `find John`<br>
+* `find John`  
   Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
+* `find Betsy Tim John`  
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
 ## Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+Deletes the specified person from the address book. Irreversible.  
 Format: `delete INDEX`
 
 > Deletes the person at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
+* `list`  
+  `delete 2`  
   Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
+* `find Betsy`   
+  `delete 1`  
   Deletes the 1st person in the results of the `find` command.
 
 ## View non-private details of a person : `view`
-Displays the non-private details of the specified person.<br>
+Displays the non-private details of the specified person.  
 Format: `view INDEX`
 
 > Views the person at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.
 
 Examples: 
-* `list`<br>
-  `view 2`<br>
+* `list`  
+  `view 2`  
   Views the 2nd person in the address book.
-* `find Betsy` <br> 
-  `view 1`<br>
+* `find Betsy`    
+  `view 1`  
   Views the 1st person in the results of the `find` command.
 
 ## View all details of a person : `viewall`
-Displays all details (including private details) of the specified person.<br>
+Displays all details (including private details) of the specified person.  
 Format: `viewall INDEX`
 
 > Views all details of the person at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.
 
 Examples: 
-* `list`<br>
-  `viewall 2`<br>
+* `list`  
+  `viewall 2`  
   Views all details of the 2nd person in the address book.
-* `find Betsy`<br> 
-  `viewall 1`<br>
+* `find Betsy`   
+  `viewall 1`  
   Views all details of the 1st person in the results of the `find` command.
 
 ## Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the address book.  
 Format: `clear`  
 
 ## Exiting the program : `exit`
-Exits the program.<br>
+Exits the program.  
 Format: `exit`  
 
 ## Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Address book data are saved in the hard disk automatically after any command that changes the data.  
 There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
