@@ -1,13 +1,30 @@
 package seedu.addressbook.parser;
 
-import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.UndoCommand;
+import seedu.addressbook.commands.RedoCommand;
+import seedu.addressbook.state.ApplicationHistory;
 
 /**
  * Parses user input.
@@ -45,9 +62,10 @@ public class Parser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
+     * @param applicationHistory the application history to be used for history commands.
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput, ApplicationHistory applicationHistory) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -78,10 +96,16 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand(applicationHistory);
+    
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand(applicationHistory);
+                
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
-
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+    
+                case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
         }
