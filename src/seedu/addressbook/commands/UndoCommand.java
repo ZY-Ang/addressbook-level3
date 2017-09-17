@@ -12,9 +12,10 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the previous operation. "
-            + "Undo history will be cleared on application exit.";
+            + "Undo history will be cleared on application exit.\n\t"
+            + "Example: " + COMMAND_WORD;
     private static final String MESSAGE_SUCCESS = "%1$s\n\nSuccessfully completed undo operation. "
-            + "Changes to Address Book:\n%2$s";
+            + "Changes to Address Book:\n\t%2$s";
     
     private ApplicationHistory applicationHistory;
 

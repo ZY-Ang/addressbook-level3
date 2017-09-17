@@ -7,6 +7,9 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static seedu.addressbook.common.Messages.MESSAGE_ADDED;
+import static seedu.addressbook.common.Messages.MESSAGE_DELETED;
+
 public class ApplicationState {
     
     private AddressBook addressbook;
@@ -29,7 +32,7 @@ public class ApplicationState {
         // show added Persons not existing in previous
         for (Person person : addressbook.getAllPersons()) {
             if (!previousState.getAddressBookInState().containsPerson(person)) {
-                successfulMessageBuilder.append("\n");
+                successfulMessageBuilder.append("\n\t");
                 successfulMessageBuilder.append(String.format(MESSAGE_ADDED, person.getAsTextHidePrivate()));
             }
         }
@@ -37,7 +40,7 @@ public class ApplicationState {
         // show Persons in previous not existing in current
         for (Person person : previousState.getAddressBookInState().getAllPersons()) {
             if (!addressbook.containsPerson(person)) {
-                successfulMessageBuilder.append("\n");
+                successfulMessageBuilder.append("\n\t");
                 successfulMessageBuilder.append(String.format(MESSAGE_DELETED, person.getAsTextHidePrivate()));
             }
         }
