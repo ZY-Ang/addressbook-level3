@@ -42,16 +42,14 @@ Format: `list`
 Finds persons whose names start with any of the given keywords or who has given tag in the addressbook.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case sensitive, the order of the keywords does not matter, names and tags are searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search). To indicate tags, put "t/" prefix
-before the keyword.
-> This search is fuzzy, meaning it can match typos as well.
-  The order of the keywords does not matter, only the name is searched, 
-  and persons matching at least one keyword will be returned (i.e. `OR` search).
+> The search is case sensitive, the order of the keywords does not matter, names
+  and tags are searched and persons matching at least one keyword will be 
+  returned (i.e. `OR` search).<br/>
+> This search is fuzzy, meaning it can match typos for names as well.
 
 Examples: 
 * `find John`<br>
-  Returns `John Doe` but not `john`
+  Returns `John Doe`
 * `find jhon`<br>
   Returns `John Doe` but not `Mary`
   
