@@ -15,8 +15,9 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous undo operation. "
-            + "Redo history will be cleared on a new normal command and application exit.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Redoes the previous undo operation. "
+            + "Redo history will be cleared on a new normal command or application exit.\n\t"
             + "Example: " + COMMAND_WORD;
     private static final String MESSAGE_SUCCESS = "%1$s\n\nSuccessfully completed redo operation. "
             + "Changes to Address Book:\n\t%2$s";

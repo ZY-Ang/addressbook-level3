@@ -50,7 +50,7 @@ public class Formatter {
         final StringBuilder formatted = new StringBuilder(MESSAGE_LISTING_PREFIX);
         int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
-            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n\t");
+            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;
         }
         return formatted.toString();
