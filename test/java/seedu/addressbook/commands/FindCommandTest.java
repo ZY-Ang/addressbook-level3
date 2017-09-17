@@ -1,6 +1,11 @@
 package seedu.addressbook.commands;
 
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.util.TypicalPersons;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,12 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
-
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.util.TypicalPersons;
 
 public class FindCommandTest {
 
@@ -25,11 +24,11 @@ public class FindCommandTest {
         //same word, same case: matched
         assertFindCommandBehavior(new String[]{"Amy"}, Arrays.asList(td.amy));
 
-        //same word, different case: not matched
-        assertFindCommandBehavior(new String[]{"aMy"}, Collections.emptyList());
+        //same word, different case: matched
+        assertFindCommandBehavior(new String[]{"aMy"}, Arrays.asList(td.amy));
 
-        //partial word: not matched
-        assertFindCommandBehavior(new String[]{"my"}, Collections.emptyList());
+        //partial word: matched
+        assertFindCommandBehavior(new String[]{"my"}, Arrays.asList(td.amy));
 
         //multiple words: matched
         assertFindCommandBehavior(new String[]{"Amy", "Bill", "Candy", "Destiny"},
@@ -40,6 +39,15 @@ public class FindCommandTest {
 
         //Keyword matching a word in address: not matched
         assertFindCommandBehavior(new String[]{"Clementi"}, Collections.emptyList());
+        
+        //Keyword matching a tag: matched
+        assertFindCommandBehavior(new String[]{"Test"}, Arrays.asList(td.dan));
+        
+        //Keywords matching tag or name: matched
+        assertFindCommandBehavior(new String[]{"Candy", "Test"}, Arrays.asList(td.candy, td.dan));
+        
+        //check for repeated name
+        assertFindCommandBehavior(new String[]{"Dan", "Test"}, Arrays.asList(td.dan));
     }
 
     /**

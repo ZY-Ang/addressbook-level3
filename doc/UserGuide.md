@@ -53,31 +53,43 @@ Format: `list [SORT_ARGUMENTS]`
 >`SORT_ARGUMENTS` should be specified in order of priority, where the leftmost sort parameter has the highest priority.
 
 Examples: 
-* `list` <br>
+* `list`  
   Returns all persons, sorted by the addition order
-* `list n/desc p/` <br>
+* `list n/desc p/`  
   Returns all persons, sorted by descending name, then by phone number
-* `list p/ n/desc` <br>
+* `list p/ n/desc`  
   Returns all persons, sorted by phone number, then by descending name
-* `list a/desc` <br>
+* `list a/desc`  
   Returns all persons, sorted by descending address
 
-### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords, sorted by addition order or the optional specified order.<br>
+### Finding all persons containing any keyword in their name or who contain given tag: `find`
+Finds persons whose names start with any of the given keywords or who has given tag in the addressbook,
+sorted by addition order or the optional specified order.  
 Format: `find KEYWORD [MORE_KEYWORDS] [SORT_ARGUMENTS]`
 
-> The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+> The search is case sensitive, the order of the keywords does not matter, names
+  and tags are searched and persons matching at least one keyword will be 
+  returned (i.e. `OR` search).  
+> This search is fuzzy, meaning it can match typos for names as well.
 
 Examples: 
 * `find John`  
   Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns any person having names `Betsy`, `Tim`, or `John`
-* `find Betsy n/`<br>
-  Returns any persons having names `Betsy`, sorted by name
-* `find Tim p/desc a/`<br>
-  Returns any person having names `Tim`, sorted by descending phone number, then by address
+* `find jhon`  
+  Returns `John Doe` but not `Mary`
+* `find Betsy Tim John`  
+  Returns any person having names close to `Betsy`, `Tim`, or `John`
+* `find Betsy n/`  
+  Returns any persons having names close to `Betsy`, sorted by name
+* `find Tim p/desc a/`  
+  Returns any person having names close to `Tim`, sorted by descending phone number, then by address
+* `find Jo Be`  
+  Returns `John Doe` `Betsy Crowe`
+* `find Betsy Tim John`  
+  `find betty tim jon`  
+  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find Betsy Tim John t/Friend`<br>
+Returns Any person having names `Betsy`, `Tim`, `John` or has the tag `Friend`
 
 ## Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible.  
@@ -129,17 +141,20 @@ Clears all entries from the address book.
 Format: `clear`  
 
 ### Undoing a previous command : `undo`
-Undoes the previous operation. Will display the new listing and other changes. Undo history will be cleared on application exit.<br>
+Undoes the previous operation. Will display the new listing and other changes.
+Undo history will be cleared on application exit.  
 Format: `undo`  
 
 ### Redoing a previous undo command : `redo`
-Redoes the previous undo operation. Will display the new listing and other changes. Redo history will be cleared on a new normal command and application exit.<br>
+Redoes the previous undo operation. Will display the new listing and other changes.
+Redo history will be cleared on a new normal command and application exit.  
 Format: `redo`  
 
 #### Exiting the program : `exit`
-Exits the program.<br>
+Exits the program.  
 Format: `exit`  
 
 ## Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.  
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+There is no need to save manually.
+Address book data are saved in a file called `addressbook.txt` in the project root folder.
