@@ -2,15 +2,18 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+import static seedu.addressbook.commands.SortableCommand.PRIVATE_COMPARATOR_VALUE;
+
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone {
+public class Phone implements Comparable<Phone> {
 
     public static final String EXAMPLE = "123456789";
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String PREFIX = "p/";
 
     public final String value;
     private boolean isPrivate;
@@ -51,6 +54,15 @@ public class Phone {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Phone other) {
+        if (isPrivate()) {
+            return PRIVATE_COMPARATOR_VALUE;
+        } else {
+            return toString().compareTo(other.toString());
+        }
     }
 
     public boolean isPrivate() {
