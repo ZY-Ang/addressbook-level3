@@ -3,7 +3,7 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-
+import seedu.addressbook.state.ApplicationState;
 import java.util.List;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
@@ -37,6 +37,24 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message for a successful undo or redo operation.
+     * 
+     * @param successMessage the success message for the undo or redo operation
+     * @param personsInCurrentState list of persons in the current state
+     * @param currentState the current application state
+     * @param previousState the previous application state
+     * @return a constructed feedback message for a successful undo or redo operation
+     */
+    public static String getMessageForSuccessfulUndoRedo(String successMessage, 
+                                                         List<ReadOnlyPerson> personsInCurrentState, 
+                                                         ApplicationState currentState,
+                                                         ApplicationState previousState) {
+        return String.format(successMessage,
+                getMessageForPersonListShownSummary(personsInCurrentState),
+                currentState.getDifferencesMessage(previousState));
+    }
+    
+    /**
      * Executes the command and returns the result.
      */
     public CommandResult execute(){
@@ -69,5 +87,9 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+    
+    public ApplicationState getCurrentApplicationState() {
+        return new ApplicationState(addressBook, relevantPersons);
     }
 }

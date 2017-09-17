@@ -2,9 +2,14 @@ package seedu.addressbook.logic;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.RedoCommand;
+import seedu.addressbook.commands.UndoCommand;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
+import seedu.addressbook.state.ApplicationHistory;
+import seedu.addressbook.state.ApplicationState;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.Collections;
@@ -19,6 +24,7 @@ public class Logic {
 
     private StorageFile storage;
     private AddressBook addressBook;
+    private ApplicationHistory applicationHistory;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -26,11 +32,13 @@ public class Logic {
     public Logic() throws Exception{
         setStorage(initializeStorage());
         setAddressBook(storage.load());
+        setApplicationHistory(initializeApplicationHistory());
     }
 
     Logic(StorageFile storageFile, AddressBook addressBook){
         setStorage(storageFile);
         setAddressBook(addressBook);
+        setApplicationHistory(initializeApplicationHistory());
     }
 
     void setStorage(StorageFile storage){
@@ -39,6 +47,10 @@ public class Logic {
 
     void setAddressBook(AddressBook addressBook){
         this.addressBook = addressBook;
+    }
+    
+    void setApplicationHistory(ApplicationHistory applicationHistory) {
+        this.applicationHistory = applicationHistory;
     }
 
     /**
@@ -65,11 +77,18 @@ public class Logic {
     }
 
     /**
+     * Creates a new instance of ApplicationHistory for managing the application state objects.
+     */
+    private ApplicationHistory initializeApplicationHistory() {
+        return new ApplicationHistory();
+    }
+    
+    /**
      * Parses the user command, executes it, and returns the result.
      * @throws Exception if there was any problem during command execution.
      */
     public CommandResult execute(String userCommandText) throws Exception {
-        Command command = new Parser().parseCommand(userCommandText);
+        Command command = new Parser().parseCommand(userCommandText, applicationHistory);
         CommandResult result = execute(command);
         recordResult(result);
         return result;
@@ -83,9 +102,11 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
+        applicationHistory.saveStateBeforeOperation(new ApplicationState(addressBook, lastShownList));
         command.setData(addressBook, lastShownList);
         CommandResult result = command.execute();
         storage.save(addressBook);
+        updateApplicationHistory(command);
         return result;
     }
 
@@ -94,6 +115,19 @@ public class Logic {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         if (personList.isPresent()) {
             lastShownList = personList.get();
+        }
+    }
+
+    /**
+     * Updates the application history using different logic depending on the command type.
+     *
+     * @param command the command that was just successfully executed.
+     */
+    private void updateApplicationHistory(Command command) {
+        if (!(command instanceof RedoCommand)
+                && !(command instanceof UndoCommand)
+                && !(command instanceof HelpCommand)) {
+            applicationHistory.updateStateAfterSuccessfulOperation();
         }
     }
 }
