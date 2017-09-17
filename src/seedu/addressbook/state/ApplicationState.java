@@ -13,7 +13,7 @@ import static seedu.addressbook.common.Messages.MESSAGE_DELETED;
 public class ApplicationState {
     
     private AddressBook addressbook;
-    private List<ReadOnlyPerson> lastShownList;
+    private List<? extends ReadOnlyPerson> lastShownList;
     
     public ApplicationState(AddressBook addressBook, List<? extends ReadOnlyPerson> lastShownList) {
         this.addressbook = addressBook.clone();
@@ -53,6 +53,6 @@ public class ApplicationState {
     }
 
     public List<ReadOnlyPerson> getListingInState() {
-        return lastShownList;
+        return new ArrayList<>(lastShownList);
     }
 }
