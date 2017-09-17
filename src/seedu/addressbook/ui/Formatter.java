@@ -5,6 +5,8 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static seedu.addressbook.common.Messages.MESSAGE_LISTING_PREFIX;
+
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
  */
@@ -45,10 +47,10 @@ public class Formatter {
 
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
-        final StringBuilder formatted = new StringBuilder();
+        final StringBuilder formatted = new StringBuilder(MESSAGE_LISTING_PREFIX);
         int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
-            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
+            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n\t");
             displayIndex++;
         }
         return formatted.toString();
