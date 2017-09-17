@@ -42,13 +42,13 @@ public class FindCommandTest {
         assertFindCommandBehavior(new String[]{"Clementi"}, Collections.emptyList());
         
         //Keyword matching a tag: matched
-        assertFindCommandBehavior(new String[]{}, new String[]{"Test"}, Arrays.asList(td.dan));
+        assertFindCommandBehavior(new String[]{"Test"}, Arrays.asList(td.dan));
         
         //Keywords matching tag or name: matched
-        assertFindCommandBehavior(new String[]{"Candy"}, new String[]{"Test"}, Arrays.asList(td.candy, td.dan));
+        assertFindCommandBehavior(new String[]{"Candy", "Test"}, Arrays.asList(td.candy, td.dan));
         
         //check for repeated name
-        assertFindCommandBehavior(new String[]{"Dan"}, new String[]{"Test"}, Arrays.asList(td.dan));
+        assertFindCommandBehavior(new String[]{"Dan", "Test"}, Arrays.asList(td.dan));
     }
 
     /**
@@ -56,20 +56,13 @@ public class FindCommandTest {
      * the result matches the persons in the expectedPersonList exactly.
      */
     private void assertFindCommandBehavior(String[] keywords, List<ReadOnlyPerson> expectedPersonList) {
-        FindCommand command = createFindCommand(keywords, new String[]{});
+        FindCommand command = createFindCommand(keywords);
         CommandResult result = command.execute();
 
         assertEquals(Command.getMessageForPersonListShownSummary(expectedPersonList), result.feedbackToUser);
     }
 
-    private void assertFindCommandBehavior(String[] keywords, String[] tags, List<ReadOnlyPerson> expectedPersonList) {
-        FindCommand command = createFindCommand(keywords, tags);
-        CommandResult result = command.execute();
-
-        assertEquals(Command.getMessageForPersonListShownSummary(expectedPersonList), result.feedbackToUser);
-    }
-
-    private FindCommand createFindCommand(String[] keywords, String[] tagwords) {
+    private FindCommand createFindCommand(String[] keywords) {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         FindCommand command = new FindCommand(keywordSet);
         command.setData(addressBook, Collections.emptyList());
