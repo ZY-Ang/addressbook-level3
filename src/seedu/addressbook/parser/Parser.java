@@ -8,6 +8,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Phone;
 
 /**
  * Parses user input.
@@ -21,10 +36,10 @@ public class Parser {
 
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + " (?<isPhonePrivate>p?)" + Phone.PREFIX + "(?<phone>[^/]+)"
+                    + " (?<isEmailPrivate>p?)" + Email.PREFIX + "(?<email>[^/]+)"
+                    + " (?<isAddressPrivate>p?)" + Address.PREFIX + "(?<address>[^/]+)"
+                    + "(?<tagArguments>(?: "+ Tag.PREFIX + "[^/]+)*)"); // variable number of tags
 
 
     /**
@@ -136,7 +151,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" " + Tag.PREFIX, "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
 
@@ -222,9 +237,20 @@ public class Parser {
 
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
+        final Set<String> nameKeywordSet = new HashSet<>();
+        final Set<String> tagSet = new HashSet<>();
+
+        //parse tags
+        for (String keyword : keywords) {
+            if(keyword.startsWith(Tag.PREFIX)) {
+                tagSet.add(keyword.substring(Tag.PREFIX.length(), keyword.length()));
+            } else {
+                nameKeywordSet.add(keyword);
+            }
+        }
+        
+        return new FindCommand(nameKeywordSet, tagSet);
+    }
 
 }
