@@ -4,7 +4,6 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.state.ApplicationState;
-
 import java.util.List;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
@@ -88,5 +87,9 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+    
+    public ApplicationState getCurrentApplicationState() {
+        return new ApplicationState(addressBook, relevantPersons);
     }
 }
