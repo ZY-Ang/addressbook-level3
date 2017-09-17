@@ -17,6 +17,11 @@ public class ListCommand extends SortableCommand {
             + "sorted by addition order ot the specified sort order." + "\n\t"
             + "Parameters: " + SORT_USAGE + "\n\t"
             + "Example: " + COMMAND_WORD + " n/ p/desc";
+    
+    public ListCommand(List<String> sortArguments) {
+        super(sortArguments);
+    }
+    
     @Override
     public CommandResult execute() {
         List<ReadOnlyPerson> allPersons = getSortedPersons(addressBook.getAllPersons().immutableListView());

@@ -19,10 +19,12 @@ public class FindCommand extends SortableCommand {
             + "Example: " + COMMAND_WORD + " alice bob charlie p/ n/desc";
 
     private final Set<String> keywords;
-    public FindCommand(Set<String> keywords) {
+    
+    public FindCommand(Set<String> keywords, List<String> sortArguments) {
+        super(sortArguments);
         this.keywords = keywords;
     }
-
+    
     /**
      * Returns copy of keywords in this command.
      */
