@@ -70,6 +70,7 @@ Format: `find KEYWORD [MORE_KEYWORDS] [SORT_ARGUMENTS]`
 > The search is case sensitive, the order of the keywords does not matter, names
   and tags are searched and persons matching at least one keyword will be 
   returned (i.e. `OR` search).  
+> Sort arguments must be put AFTER all search keywords to be searched correctly.  
 > This search is fuzzy, meaning it can match typos for names as well.
 
 Examples: 

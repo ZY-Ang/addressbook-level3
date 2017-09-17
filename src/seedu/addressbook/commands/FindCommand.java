@@ -20,8 +20,9 @@ public class FindCommand extends SortableCommand {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Finds all persons whose names are close to the specified keywords or whose tag(s) match keyword(s) "
-            + "and displays them as a list with index numbers, "
+            + "Finds all persons whose names are close to the specified keywords or "
+            + "whose tag(s) match keyword(s) and \n"
+            + "displays them as a list with index numbers, "
             + "sorted by addition order or the optional specified sort orders.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]... " + SORT_USAGE + "\n\t"
             + "Example: " + COMMAND_WORD + " alice bob charles school friends p/ n/desc";
