@@ -13,10 +13,10 @@ public class ListCommand extends SortableCommand {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
-            + "Displays all persons in the address book as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
-
-
+            + "Displays all persons in the address book as a list with index numbers, "
+            + "sorted by addition order ot the specified sort order." + "\n\t"
+            + "Parameters: " + SORT_USAGE + "\n\t"
+            + "Example: " + COMMAND_WORD + " n/ p/desc";
     @Override
     public CommandResult execute() {
         List<ReadOnlyPerson> allPersons = getSortedPersons(addressBook.getAllPersons().immutableListView());

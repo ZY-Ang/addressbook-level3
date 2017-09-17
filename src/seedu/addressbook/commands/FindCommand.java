@@ -13,12 +13,12 @@ public class FindCommand extends SortableCommand {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "the specified keywords (case-sensitive) and displays them as a list with index numbers, "
+            + "sorted by addition order or the specified sort order.\n\t"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]... " + SORT_USAGE + "\n\t"
+            + "Example: " + COMMAND_WORD + " alice bob charlie p/ n/desc";
 
     private final Set<String> keywords;
-
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
