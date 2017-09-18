@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Sortable superclass for implementing sort functionality for commands of listable type.
  */
-public class SortableCommand extends Command {
+public abstract class SortableCommand extends Command {
 
     public static final String SORT_ASCENDING_POSTFIX_WORD = "asc";
     public static final String SORT_DESCENDING_POSTFIX_WORD = "desc";
